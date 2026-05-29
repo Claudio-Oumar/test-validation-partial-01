@@ -35,6 +35,22 @@ public class BaggageFeeCalculator {
      */
     public double calculateFee(double weight, int bagCount, Long passengerId) {
         // TODO: Implementar lógica de negocio y validación de excepciones
+        // tarjeta base
+        double fee = 30.0 * bagCount;
+        //Exceso de peso
+        if (weight > 23) {
+            fee += 50.0 * bagCount;
+        }
+
+        // el veneficio vip
+        if(PassengerService.isVip(passengerId)&& weight <= 23){
+            fee -= 30.0;
+        }
+        //Excepciones
+        if(weight <= 0 || bagCount < 1 || passengerId == null){
+            throw new IllegalArgumentException("Valores de entrada inválidos");
+
+        }
         return 0.0;
     }
 }
